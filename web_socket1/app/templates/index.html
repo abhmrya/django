@@ -1,0 +1,74 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chhat App</title>
+</head>
+<body>
+    <textarea  id="charset-log" cols='100' rows='20'></textarea><br>
+    <input type="text"  id="chat-message-input" size="100"><br>
+    <input type="button" value="send" id="chat-message-submit">
+    <script>
+        var ws = new WebSocket('ws://127.0.0.1:8000/ws/sc/')
+        ws.onopen = function(){
+            console.log('WebSocket connection open...')
+            ws.send('hii from client')
+        }
+        ws.onmessage = function(event){
+            console.log('message received from server',event)
+        }
+        ws.onclose = function(event){
+            console.error('websocket connection closed unexpectedlt')
+        }
+        document.getElementById('chaat-message-submit').onclick=function(event){
+            const messageInputDom = document.getElementById('chat-message-input')
+            const message = messageInputDom.value
+            ws.send(JSON.stringify({
+                'msg':message
+            }))
+            messageInputDom.value = ''
+        }
+    </script>
+    
+</body>
+</html> {% endcomment %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Chat</title>
+</head>
+<body>
+    <h1>WebSocket Chat</h1>
+    <input type="text" id="messageInput" placeholder="Enter message..." />
+    <button onclick="sendMessage()">Send</button>
+    <ul id="messages"></ul>
+
+    <script>
+        const socket = new WebSocket('ws://127.0.0.1:8000/ws/ac/');
+
+        socket.onopen = function(e) {
+            console.log("WebSocket connection established");
+        };
+
+        socket.onmessage = function(e) {
+            const messages = document.getElementById("messages");
+            const li = document.createElement("li");
+            li.textContent = e.data;
+            messages.appendChild(li);
+        };
+
+        socket.onclose = function(e) {
+            console.log("WebSocket connection closed");
+        };
+
+        function sendMessage() {
+            const input = document.getElementById("messageInput");
+            const message = input.value;
+            socket.send(message);
+            input.value = "";
+        }
+    </script>
+</body>
+</html>
