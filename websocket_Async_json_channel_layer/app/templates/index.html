@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Chat</title>
+</head>
+<body>
+    <h1>Group Name : {{ groupname }}</h1>
+    
+    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+    <input type="text" size="100" id="chat-message-input"><br>
+    <input type="button" id="chat-message-submit" value="Send">
+
+    {{ groupname|json_script:"group-name" }}
+
+    <script>
+        const groupName = JSON.parse(document.getElementById("group-name").textContent);
+        console.log("Group Name:", groupName);
+
+        const ws = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/jwc/'
+            + groupName
+            
+        );
+
+        ws.onopen =  function(){
+            console.log('WebSocket connection Open...')           
+        }
+
+        document.getElementById("chat-message-submit").onclick = function(event){
+            const messageInputDom = document.getElementById('chat-message-input')
+            const message = messageInputDom.value
+            ws.send(JSON.stringify({
+                'msg':message
+            }))
+            messageInputDom.value='';
+        }
+
+        ws.onmessage = function(event){
+            console.log("message receive from server...",event)
+            const data = JSON.parse(event.data)
+            console.log("data..",data)
+            document.querySelector('#chat-log').value+=(data.message + '\n')
+        }
+    </script>
+</body>
+</html>
