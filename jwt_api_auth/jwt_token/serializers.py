@@ -3,6 +3,7 @@ from .models import MyUser,Student,Staff,StudentRegistr,MyUser
 from django.contrib.auth import authenticate
 
 
+
 class AdminRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = MyUser
