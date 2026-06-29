@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Channel Layer Demo</title>
+</head>
+<body>
+
+<h2>Channel Layer Demo</h2>
+
+<input type="text" id="msg" placeholder="Enter Message">
+<button onclick="sendMessage()">Send</button>
+
+<hr>
+
+<textarea id="chat" rows="15" cols="60" readonly></textarea>
+
+<script>
+
+const socket = new WebSocket("ws://127.0.0.1:8000/ws/channel/");
+
+socket.onopen = function () {
+
+    console.log("✅ Connected");
+
+};
+
+socket.onmessage = function (e) {
+
+    console.log("Message From Server :", e.data);
+
+    document.getElementById("chat").value += e.data + "\n";
+
+};
+
+socket.onclose = function () {
+
+    console.log("❌ Connection Closed");
+
+};
+
+function sendMessage(){
+
+    let msg = document.getElementById("msg").value;
+
+    socket.send(JSON.stringify({
+
+        type : "send",
+
+        message : msg
+
+    }));
+
+    document.getElementById("msg").value = "";
+
+}
+
+</script>
+
+</body>
+</html>

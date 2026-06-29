@@ -9,9 +9,8 @@ class MyAsyncConsumer(AsyncWebsocketConsumer):
     async def receive(self, text_data=None, bytes_data=None):
         print("📨 Received from client:", text_data)
         for i in range(50):
-            print(i)
             await self.send(text_data=str(i))
-            await asyncio.sleep(1.5)
+            await asyncio.sleep(1.4)
 
     async def disconnect(self, close_code):
         print(f"❌ WebSocket disconnected with code {close_code}")

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON Demo</title>
+</head>
+<body>
+
+<h2>JSON Demo</h2>
+
+<button id="send">
+    Send JSON
+</button>
+
+<pre id="result"></pre>
+
+<script>
+
+const socket = new WebSocket("ws://127.0.0.1:8000/ws/json/");
+
+socket.onopen = function(){
+
+    console.log("Connected");
+
+};
+
+socket.onmessage = function(event){
+
+    console.log(event.data);
+
+    const data = JSON.parse(event.data);
+
+    document.getElementById("result").innerHTML +=
+        JSON.stringify(data,null,4);
+
+};
+
+document.getElementById("send").onclick = function(){
+
+    const student = {
+
+        name:"Abhay",
+
+        age:21,
+
+        city:"Delhi"
+
+    };
+
+    socket.send(
+        JSON.stringify(student)
+    );
+
+};
+
+</script>
+
+</body>
+</html>
