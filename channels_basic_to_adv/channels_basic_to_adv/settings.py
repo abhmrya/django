@@ -44,9 +44,11 @@ INSTALLED_APPS = [
     "channel_layer_app",
     "group_chat_app",
     "private_chat_app",
+    "auth_chat_app",
+    "private_chat",
+    'accounts',
 
 
-    "django_browser_reload",
     
 ]
 
@@ -59,8 +61,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
 
 ]
 

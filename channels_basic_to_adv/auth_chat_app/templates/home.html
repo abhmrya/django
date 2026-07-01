@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Home</title>
+</head>
+
+<body>
+
+<h2>Home Page</h2>
+
+<h3>{{request.user}}</h3>
+
+<script>
+
+const socket = new WebSocket(
+    "ws://127.0.0.1:8000/ws/auth/"
+);
+
+socket.onopen=function(){
+
+    console.log("Connected");
+
+}
+
+socket.onmessage=function(event){
+
+    console.log(event.data);
+
+}
+
+</script>
+
+</body>
+</html>

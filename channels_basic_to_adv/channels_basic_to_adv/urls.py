@@ -23,8 +23,9 @@ urlpatterns = [
     path("", include("channel_layer_app.urls")),
     path("", include("group_chat_app.urls")),
     path("", include("private_chat_app.urls")),
+    path("", include("auth_chat_app.urls")),
+    path("", include("private_chat.urls")),
+    path("", include("accounts.urls")),
 
-
-    path("__reload__/", include("django_browser_reload.urls")),
 
 ]

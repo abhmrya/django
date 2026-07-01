@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Private Chat</title>
+</head>
+<body>
+
+<h1>Private Chat</h1>
+
+<script>
+
+const socket = new WebSocket(
+    "ws://127.0.0.1:8000/ws/private-chat/"
+);
+
+socket.onopen = function(){
+
+    console.log("Connected");
+
+};
+
+socket.onclose = function(){
+
+    console.log("Disconnected");
+
+};
+
+</script>
+
+</body>
+</html>
