@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Group Chat</title>
+</head>
+
+<body>
+
+    <h2>Group Chat Demo</h2>
+
+    <textarea id="chat-box" rows="20" cols="80" readonly></textarea>
+
+    <br><br>
+
+    <input
+        type="text"
+        id="message"
+        placeholder="Enter Message">
+
+    <button id="send">
+        Send
+    </button>
+
+    <script>
+        const room = "python"
+        const socket = new WebSocket(`ws://127.0.0.1:8000/ws/group/${room}`);
+        socket.onopen = function () {
+
+            console.log("Connected");
+
+        };
+
+        socket.onmessage = function (e) {
+
+            console.log("Message Received :", e.data);
+
+            const data = JSON.parse(e.data);
+
+            document.getElementById("chat-box").value +=
+                data.message + "\n";
+
+        };
+
+        socket.onerror = function (e) {
+
+            console.log("Socket Error", e);
+
+        };
+
+        socket.onclose = function () {
+
+            console.log("Socket Closed");
+
+        };
+
+        document.getElementById("send").onclick = function () {
+
+            const msg = document.getElementById("message").value;
+
+            console.log("Sending :", msg);
+
+            socket.send(
+                JSON.stringify({
+                    "message": msg
+                })
+            );
+
+            document.getElementById("message").value = "";
+
+        };
+
+    </script>
+
+</body>
+
+</html>

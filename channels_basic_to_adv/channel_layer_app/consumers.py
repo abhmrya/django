@@ -16,6 +16,13 @@ class MyConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
 
+        # print(self.__dict__)
+        
+        print(type(self.channel_layer))
+        print(self.channel_layer)
+        print(type(self.channel_name))
+        print(self.channel_name)
+
         print("\nReceive Method Called")
 
         print("Raw Data :", text_data)

@@ -11,13 +11,15 @@ from channels.security.websocket import AllowedHostsOriginValidator
 
 from jsonstringify.routing import websocket_urlpatterns as json_routes
 from channel_layer_app.routing import websocket_urlpatterns as channel_routes
-
+from group_chat_app.routing import websocket_urlpatterns as group_routes
 application = ProtocolTypeRouter({
     "http": django_asgi_app,
     "websocket": AllowedHostsOriginValidator(
         AuthMiddlewareStack(
             URLRouter(
-                json_routes+channel_routes
+                    json_routes +
+                    channel_routes +
+                    group_routes
             )
         )
     ),

@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("jsonstringify.urls")),
     path("", include("channel_layer_app.urls")),
+    path("", include("group_chat_app.urls")),
 
 
     path("__reload__/", include("django_browser_reload.urls")),
