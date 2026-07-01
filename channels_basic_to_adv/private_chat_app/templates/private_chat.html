@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Private Chat</title>
+</head>
+<body>
+
+    <h2>Private Chat</h2>
+
+    <label>Your Name :</label>
+    <input type="text" id="username" placeholder="abhay">
+
+    <button onclick="connectSocket()">Connect</button>
+
+    <br><br>
+
+    <label>Send To :</label>
+    <input type="text" id="to" placeholder="rahul">
+
+    <br><br>
+
+    <input type="text" id="message" placeholder="Enter Message">
+
+    <button onclick="sendMessage()">Send</button>
+
+    <hr>
+
+    <h3>Messages</h3>
+
+    <textarea id="chat-log" rows="15" cols="80" readonly></textarea>
+
+<script>
+
+let socket = null;
+
+function connectSocket(){
+
+    const username = document.getElementById("username").value;
+
+    socket = new WebSocket(
+        `ws://127.0.0.1:8000/ws/private/${username}/`
+    );
+
+    socket.onopen = function(){
+
+        console.log("Connected");
+
+        document.getElementById("chat-log").value +=
+        "Connected as " + username + "\n";
+
+    }
+
+    socket.onmessage = function(e){
+
+        const data = JSON.parse(e.data);
+
+        document.getElementById("chat-log").value +=
+        data.from + " : " + data.message + "\n";
+
+    }
+
+    socket.onclose = function(){
+
+        console.log("Disconnected");
+
+    }
+
+}
+
+function sendMessage(){
+
+    const to = document.getElementById("to").value;
+
+    const message = document.getElementById("message").value;
+
+    socket.send(JSON.stringify({
+
+        "to":to,
+
+        "message":message
+
+    }));
+
+    document.getElementById("message").value="";
+
+}
+
+</script>
+
+</body>
+</html>

@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'jsonstringify',
     "channel_layer_app",
     "group_chat_app",
+    "private_chat_app",
 
 
     "django_browser_reload",
