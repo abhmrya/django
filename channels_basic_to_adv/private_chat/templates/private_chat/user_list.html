@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>User List</title>
+
+</head>
+
+<body>
+
+<h2>All Users</h2>
+
+<hr>
+
+{% for user in users %}
+
+<div>
+
+    <h3>
+
+        {{ user.username }}
+
+    </h3>
+
+    <a href="{% url 'chat' user.id %}">
+
+        Chat
+
+    </a>
+
+</div>
+
+<hr>
+
+{% empty %}
+
+<h3>No Users Available</h3>
+
+{% endfor %}
+
+</body>
+
+</html>

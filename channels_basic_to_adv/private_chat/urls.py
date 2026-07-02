@@ -3,6 +3,16 @@ from . import views
 
 urlpatterns = [
 
-    path("chat/", views.chat_page, name="chat"),
+    path(
+        "users/",
+        views.user_list,
+        name="user_list"
+    ),
+
+    path(
+        "chat/<int:user_id>/",
+        views.chat_page,
+        name="chat"
+    ),
 
 ]
