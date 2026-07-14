@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     "django_browser_reload",
     'crudapp',
     'rest_framework',
+    'crudview',
 ]
 
 MIDDLEWARE = [

@@ -63,7 +63,7 @@ function addMessage(sender,message,time){
     messagesDiv.appendChild(div);
 
     scrollBottom();
-
+2
 }
 
 
